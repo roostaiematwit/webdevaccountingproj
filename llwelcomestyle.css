@@ -1,0 +1,37 @@
+@font-face {
+  font-family: myFancyAslFont;
+  src: url(SouthernAire.ttf);
+}
+
+body {
+  background-color: blanchedalmond;
+}
+
+.welcomeHeader {
+    font-family: myFancyAslFont;
+    font-weight: 100;
+    font-size: 50px;
+    background-color: rgb(255, 190, 110);
+    border-color: bisque;
+}
+
+.navbar {
+    background-color: rgb(54, 28, 28);
+    color: rgb(255, 172, 6);
+    display:flexbox;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+
+  .navbar a {
+    color: #fff;
+    text-decoration: underline;
+    margin-right: 1rem;
+  }
+
+  .navbar a:hover {
+    color: rgb(255, 234, 5);
+    text-decoration: underline;
+    margin-right: 1rem;
+  }
