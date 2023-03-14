@@ -1,103 +1,60 @@
 <html>
   <head>
     <title>Accounting Deals</title>
-    <style>
-      /* Add some styling to the page */
-      .main-page {
-        margin: 60px 20% 0 20%;
-        padding: 1rem;
-      }
-
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-
-      .navbar {
-        background-color: #333;
-        color: #fff;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-      }
-
-      .navbar a {
-        color: #fff;
-        text-decoration: none;
-        margin-right: 1rem;
-      }
-
-      .sidebar {
-        background-color: #ddd;
-        color: #333;
-        width: 20%;
-        height: 100vh;
-        padding: 1rem;
-        position: fixed;
-        left: 0;
-        top: 60px;
-      }
-
-      table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-      }
-
-      td,
-      th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-      }
-
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
     <script>
-        function addToTable() {
-          var name = document.getElementById("name").value;
-          var address = document.getElementById("address").value;
-          var paid = document.getElementById("paid").value;
-  
-          var table = document.getElementById("table");
-          var row = table.insertRow(-1);
-  
-          var nameCell = row.insertCell(0);
-          var addressCell = row.insertCell(1);
-          var paidCell = row.insertCell(2);
-  
-          nameCell.innerHTML = name;
-          addressCell.innerHTML = address;
-          paidCell.innerHTML = paid;
-        }
-      </script>
-    </head>
-  
-    <body>
+      function addToTable() {
+        var name = document.getElementById("name").value;
+        var address = document.getElementById("address").value;
+        var paid = document.getElementById("paid").value;
+
+        var table = document.getElementById("table");
+        var row = table.insertRow(-1);
+
+        var nameCell = row.insertCell(0);
+        var addressCell = row.insertCell(1);
+        var paidCell = row.insertCell(2);
+
+        nameCell.innerHTML = name;
+        addressCell.innerHTML = address;
+        paidCell.innerHTML = paid;
+      }
+    </script>
+  </head>
+
+  <body>
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a class="active" href="mainpage.html">News</a></li>
+      <li><a href="page3.html">Contact</a></li>
+      <li><a href="page4.html">About</a></li>
+    </ul>
+
+    <div id="screen">
       <div class="main-page">
         <div class="add-property">
           <h1>Add a Property</h1>
-          <form action="javascript:void(0);" method="post" onsubmit="addToTable()">
-            <label for="name">Name:</label><br>
+          <form
+            action="javascript:void(0);"
+            method="post"
+            onsubmit="addToTable()"
+          >
+            <label for="name">Name:</label><br />
             <input type="text" name="name" id="name" />
             <br />
-            <label for="address">Address:</label><br>
+            <label for="address">Address:</label><br />
             <input type="text" name="address" id="address" />
             <br />
-            <label for="paid">Paid:</label><br>
-            <input type="text" name="paid" id="paid" /><br>
+            <label for="paid">Paid:</label><br />
+            <input type="text" name="paid" id="paid" /><br />
             <br />
-            <input type="submit" value="Add Property" /> 
+            <input type="submit" value="Add Property" />
           </form>
         </div>
-  
+
         <br />
         <h1>See Deals</h1>
-  
+
         <!-- Table -->
         <div class="see-properties">
           <h1>See Properties</h1>
@@ -110,5 +67,6 @@
           </table>
         </div>
       </div>
-    </body>
-  </html>
+    </div>
+  </body>
+</html>
