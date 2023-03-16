@@ -54,7 +54,8 @@ a, a:hover, a:focus {
 }
 
 #sidebar .active {
-    background-color: var(--active-color) !important;
+    background-color: white !important;
+    color: #3562df;
 }
 
 #sidebar .sidebar-header {
