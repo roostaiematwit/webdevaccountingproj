@@ -9,28 +9,28 @@
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
-#balancetab{
+#balancetab {
     width: 45%;
 }
-#calendartab{
+
+#calendartab {
     width: 45%;
 }
-#leasetab{
+
+#leasetab {
     width: 95%;
     height: 200px;
 }
-#tabs{
+
+#tabs {
     display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     min-height: 50px;
 
 }
-#title{
-    margin: 0px 0px 0px 30px;
-}
+
 
 
 /* Make a payment page */
-

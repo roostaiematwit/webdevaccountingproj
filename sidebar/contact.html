@@ -1,47 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>PadPal</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- Bootstrap CSS CDN -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    />
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="wrapper">
-      <!-- Sidebar Holder -->
-      <nav id="sidebar">
-        <div class="sidebar-header">
-          <h3>PadPal</h3>
-        </div>
+  <title>PadPal - Contact Us</title>
 
-        <ul class="list-unstyled components">
-          <p>Welcome Pedro or user!</p>
-          <li><a href="home.html">Home</a></li>
-          <li><a href="./payments.html">Payments</a></li>
-          <li><a href="./maintainence.html">Maintenance</a></li>
-          <li class="active"><a href="./contact.html">Contact Us</a></li>
-        </ul>
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!-- Our Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="contactstyle.css" />
+</head>
 
-        <ul class="list-unstyled bottomButton">
-          <li>
-            <a href="#" class="logout">Log Out</a>
-          </li>
-        </ul>
-      </nav>
+<body>
+  <div class="wrapper">
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>Welcome!</h3>
+      </div>
 
-      <!-- Page Content Holder -->
-      <div id="content"></div>
+      <ul class="list-unstyled components">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="./payments.html">Payments</a></li>
+        <li><a href="./maintainence.html">Maintenance</a></li>
+        <li class="active"><a href="./contact.html">Contact Us</a></li>
+      </ul>
 
-      <h1>Insert stuff here</h1>
+      <ul class="list-unstyled bottomButton">
+        <li>
+          <a href="#" class="logout">Log Out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+      <header>
+        <h1>PadPal</h1>
+        <p id="address">Your Address</p>
+      </header>
+      <hr>
+      <h2>Contact Us</h2>
+      <div id="page">
+        
+        <section class="tooltab">
+          <h4>Contact Information</h4>
+          <p>Phone Number: (617) 699-4612</p>
+          <p>E-Mail Address: <a href="mailto:services@padpal.com">services@padpal.com</a></p>
+          <p>Mailing Address: 555 Huntington Avenue, Boston, MA 02115</p>
+          <p>Weekly Hours:</p>
+          <ul>
+            <li>Monday-Friday: 7am - 6pm</li>
+            <li>Saturday: 11am - 4pm</li>
+            <li>Sunday: Closed</li>
+          </ul>
+        </section>
+        <section class="tooltab">
+          <h4>Request Maintenance</h4>
+          <form action="/sidebar/maintainence.html">
+            <input type="submit" value="Make a Request"></input>
+          </form>
+        </section>
+      </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

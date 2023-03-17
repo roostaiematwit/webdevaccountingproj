@@ -18,7 +18,7 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #999;
+    color: #4c4c4c; /* MINE */
 }
 
 a, a:hover, a:focus {
@@ -34,6 +34,12 @@ a, a:hover, a:focus {
     border-radius: 0;
     margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+    background-color: rgb(157, 157, 157);
+    height: 1px;
+    border: none;
 }
 
 
@@ -110,7 +116,9 @@ ul.bottomButton {
 ----------------------------------------------------- */
 #content {
     padding: 20px;
+    padding-top: 0px; /* MINE */
     min-height: 100vh;
+    width:100%;
 }
 
 /* ---------------------------------------------------
