@@ -1,0 +1,52 @@
+h1 {
+    display: block;
+}
+
+table {
+    border-collapse: collapse;
+    padding: 10px;
+    font-size: 18px;
+}
+
+th {
+    padding: 10px;
+    padding-bottom: 5px;
+}
+
+td {
+    padding: 2px;
+}
+
+#bigDiv {
+    display: flex;
+    min-width: 100%;
+    padding: 10px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
+}
+
+.titleRow {
+    font-weight: 600;
+    color:#696969;
+    text-decoration: underline;
+}
+
+#schedPay {
+    max-width: 35%;
+}
+
+#compPay {
+    max-width: 35%;
+}
+
+.tooltab {
+    background-color: #f0f0f0;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    padding: 0px 20px 20px 20px;
+    margin: 20px 50px 20px 0px;
+
+    /*  light shadow */
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}

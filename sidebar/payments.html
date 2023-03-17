@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>PadPal</title>
+    <title>PadPal - Payments</title>
 
     <!-- Bootstrap CSS CDN -->
     <link
@@ -14,17 +14,17 @@
     />
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="paymentsStyle.css" />
   </head>
   <body>
     <div class="wrapper">
       <!-- Sidebar Holder -->
       <nav id="sidebar">
         <div class="sidebar-header">
-          <h3>PadPal</h3>
+          <h3>Welcome!</h3>
         </div>
 
         <ul class="list-unstyled components">
-          <p>Welcome Pedro or user!</p>
           <li><a href="home.html">Home</a></li>
           <li class="active"><a href="./payments.html">Payments</a></li>
           <li><a href="./maintainence.html">Maintenance</a></li>
@@ -39,9 +39,71 @@
       </nav>
 
       <!-- Page Content Holder -->
-      <div id="content"></div>
-
-      <h1>Insert stuff here</h1>
+      <div id="content">
+        <header>
+          <h1>PadPal</h1>
+          <p id="address">Your Address</p>
+        </header>
+        <hr />
+        <h2>Payments</h2>
+        <div id="bigDiv">
+              <div class="tooltab" id="schedPay">
+                <table>
+                  <th colspan="2">Scheduled Payments </th>
+                  <tr class="titleRow">
+                    <td>Amount</td>
+                    <td>Date</td>
+                  </tr>
+                  <tr>
+                    <td>$1,250.00</td>
+                    <td>1/29/22</td>
+                  </tr>
+                  <tr>
+                    <td>$1,000.00</td>
+                    <td>2/27/22</td>
+                  </tr>
+                  <tr>
+                    <td>$250.00</td>
+                    <td>2/28/22</td>
+                  </tr>
+                  <tr>
+                    <td>$$</td>
+                    <td>xx/xx/xx</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="tooltab" id="compPay">
+                <table>
+                  <th colspan="2">
+                      Completed Payments
+                  </th>
+                  <tr class="titleRow">
+                    <td>Amount</td>
+                    <td>Date</td>
+                  </tr>
+                  <tr>
+                    <td>$750.00</td>
+                    <td>11/18/21</td>
+                  </tr>
+                  <tr>
+                    <td>$750.00</td>
+                    <td>11/22/21</td>
+                  </tr>
+                  <tr>
+                    <td>$1,250.00</td>
+                    <td>12/28/21</td>
+                  </tr>
+                  <tr>
+                    <td>$$</td>
+                    <td>xx/xx/xx</td>
+                  </tr>
+                </table>
+              </div>
+        </div>
+        <button type="button" class="btn btn-primary">
+          <a href="../pedro/makepayment.html">Make a Payment NOW!!!1!</a>
+        </button>
+      </div>
     </div>
   </body>
 </html>
