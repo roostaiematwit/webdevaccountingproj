@@ -13,14 +13,28 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
+    <script>
+      window.onload = function () {
+        const username = sessionStorage.getItem("username");
+        const name = sessionStorage.getItem("name");
+        const address = sessionStorage.getItem("address");
+
+        if (username) {
+          document.getElementById("username-display").textContent = name;
+          document.getElementById("address").textContent = address;
+        } else {
+          window.location.href = "/login.html";
+        }
+      };
+    </script>
     <div class="wrapper">
       <!-- Sidebar Holder -->
       <nav id="sidebar">
         <div class="sidebar-header">
-          <h3>Welcome!</h3>
+          <h3>Welcome, <span id="username-display"></span>!</h3>
         </div>
 
         <ul class="list-unstyled components">
@@ -41,7 +55,7 @@
       <div id="content">
         <header>
           <h1>PadPal</h1>
-          <p id="address">Your Address</p>
+          <p id="address"></p>
         </header>
         <hr />
         <h2>Make a payment</h2>

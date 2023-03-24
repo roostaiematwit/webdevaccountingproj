@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>PadPal - Login</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/loginstyle.css" />
+    <style>
+      label {
+        display: block;
+        margin-bottom: 5px;
+        /* /* outline: 3px solid red; */
+      }
+      input {
+        display: inline;
+      }
+
+      .form-group {
+        display: block;
+        margin-bottom: 5px;
+      }
+      hr {
+        margin-top: 20px 0px;
+        opacity: 0;
+      }
+      input[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 3px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #555;
+      }
+      legend {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>PadPal</h1>
+    </header>
+    <section class="tooltab">
+      <h2>Create New User</h2>
+
+      <form id="registerForm" method="POST" action="/addClient">
+        <section class="form-group">
+          <legend>Account Type:</legend>
+          <select id="account-type" name="account-type">
+            <option value="tenant">Tenant</option>
+            <option value="landlord">Landlord</option>
+          </select>
+        </section>
+        <hr />
+
+        <legend>Personal Information</legend>
+        <section class="form-group">
+          <label for="name">Full Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Full Name"
+            required
+          />
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <label for="address">Address:</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Address"
+            required
+          />
+        </section>
+
+        <hr />
+
+        <legend>Account Information</legend>
+        <section class="form-group">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter Password"
+            required
+          />
+          <label for="confirmPass">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirmPass"
+            name="confirmPass"
+            placeholder="Re-enter Password"
+            required
+          />
+        </section>
+
+        <input type="submit" value="Create User"></input>
+      </form>
+    </section>
+    <script>
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (e) {
+          const password = document.getElementById("password").value;
+          const confirmPass = document.getElementById("confirmPass").value;
+          if (password != confirmPass) {
+            alert("Passwords do not match");
+            e.preventDefault();
+          }
+        });
+    </script>
+  </body>
+</html>
