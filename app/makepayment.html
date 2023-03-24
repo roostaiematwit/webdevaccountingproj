@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>PadPal - Make a Payment</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h3>Welcome!</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="payments.html">Payments</a></li>
+          <li><a href="maintainence.html">Maintenance</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+        <ul class="list-unstyled bottomButton">
+          <li>
+            <a href="login.html" class="logout">Log Out</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Page Content Holder -->
+      <div id="content">
+        <header>
+          <h1>PadPal</h1>
+          <p id="address">Your Address</p>
+        </header>
+        <hr />
+        <h2>Make a payment</h2>
+        <form id="paymentform">
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input
+              type="number"
+              class="form-control"
+              id="amount"
+              placeholder="Enter amount"
+            />
+          </div>
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="date"
+              placeholder="Enter date"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input
+              type="text"
+              class="form-control"
+              id="description"
+              placeholder="Enter description"
+            />
+          </div>
+          <h2>Credit Card Information</h2>
+          <div class="form-group">
+            <label for="cardnumber">Card Number</label>
+            <input
+              type="number"
+              class="form-control"
+              id="cardnumber"
+              placeholder="Enter card number"
+            />
+          </div>
+          <div class="form-group">
+            <label for="cardholder">Card Holder</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cardholder"
+              placeholder="Enter card holder"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

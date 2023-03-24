@@ -1,0 +1,36 @@
+.tooltab {
+    background-color: #f0f0f0;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    padding: 0px 20px 20px 20px;
+    margin: 20px;
+
+    /*  light shadow */
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+#balancetab {
+    width: 45%;
+}
+
+#calendartab {
+    width: 45%;
+}
+
+#leasetab {
+    width: 95%;
+    height: 200px;
+}
+
+#tabs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    min-height: 50px;
+
+}
+
+
+
+/* Make a payment page */

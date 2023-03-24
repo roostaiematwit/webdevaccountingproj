@@ -1,0 +1,55 @@
+.tooltab {
+    width: 95%;
+}
+
+input[type="text"] {
+    padding:5px;
+    padding-bottom: 100px;
+    margin-bottom: 10px;
+    width:100%;
+    border-radius: 6px;
+    border: 1px solid rgb(107, 107, 107);
+    outline-color: black;
+    word-wrap: break-word;
+}
+
+input[type="submit"] {
+    border-radius: 4px;
+    border: rgb(107, 107, 107) solid 1px;
+}
+
+.titleRow {
+    font-weight: 600;
+    color:#696969;
+    text-decoration: underline;
+}
+
+table {
+    border-collapse: collapse;
+    padding: 10px;
+    font-size: 14px;
+}
+
+th {
+    padding: 10px;
+    padding-bottom: 5px;
+}
+
+#page {
+    flex-wrap: wrap;
+    flex-direction: row;
+    display: inline-flex;
+    min-width:100%;
+}
+
+td {
+    padding: 2px;
+    padding-right: 100px;
+}
+
+input[type="date"] {
+    border-radius: 5px;
+    border: 1px solid rgb(107, 107, 107);
+    outline-color: black;
+    margin: 0px 0px 15px 0px;
+}

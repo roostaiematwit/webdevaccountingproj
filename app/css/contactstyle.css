@@ -1,0 +1,31 @@
+.tooltab {
+    width: 45%;
+}
+
+.small {
+    height: 10%;
+}
+
+a[href="mailto:services@padpal.com"] {
+    text-decoration: underline;
+}
+
+a[href="mailto:services@padpal.com"]:hover {
+    text-decoration: none;
+}
+
+#page {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+h2 {
+    margin:0;
+}
+
+input {
+    padding: 5px 10px;
+    font-size: 16px;
+}

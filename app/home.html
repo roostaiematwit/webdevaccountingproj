@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>PadPal - Home</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/homestyle.css" />
+
+    <!-- FullCalendar library -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
+    <script src="javascript/calendar.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h3>Welcome!</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+          <li class="active"><a href="./home.html">Home</a></li>
+          <li><a href="./payments.html">Payments</a></li>
+          <li><a href="./maintainence.html">Maintenance</a></li>
+          <li><a href="./contact.html">Contact Us</a></li>
+        </ul>
+
+        <ul class="list-unstyled bottomButton">
+          <li>
+            <a href="login.html" class="logout">Log Out</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Page Content Holder -->
+      <div id="content">
+        <header>
+          <h1>PadPal</h1>
+          <p id="address">Your Address</p>
+        </header>
+        <hr />
+
+        <h2 id="title">Home</h2>
+        <div id="tabs">
+          <!-- home page version of balance/make a payment tab -->
+          <section id="balancetab" class="tooltab">
+            <h2>Current Balance</h2>
+            <h3>$0.00</h3>
+
+            <h2>Due by:</h2>
+            <h3>10/10/2019</h3>
+            <hr />
+            <button type="button" class="btn btn-primary">
+              <a href="./makepayment.html">Make a Payment</a>
+            </button>
+            <br /><br />
+            <button type="button" class="btn btn-primary">
+              <a href="./payments.html">Previous Payments</a>
+            </button>
+          </section>
+
+          <!-- Calendar tab -->
+          <section id="calendartab" class="tooltab">
+            <h2>Calendar</h2>
+            <div id="calendar"></div>
+          </section>
+          <!-- Current Lease Tab -->
+          <section id="leasetab" class="tooltab">
+            <h2>Current Lease</h2>
+            <h3>10/10/2019 - 10/10/2020</h3>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
