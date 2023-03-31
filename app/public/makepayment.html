@@ -21,6 +21,7 @@
         const username = sessionStorage.getItem("username");
         const name = sessionStorage.getItem("name");
         const address = sessionStorage.getItem("address");
+        document.querySelector('input[name="username"]').value = username;
 
         if (username) {
           document.getElementById("username-display").textContent = name;
@@ -40,7 +41,7 @@
         <ul class="list-unstyled components">
           <li><a href="home.html">Home</a></li>
           <li><a href="payments.html">Payments</a></li>
-          <li><a href="maintainence.html">Maintenance</a></li>
+          <li><a href="maintenance.html">Maintenance</a></li>
           <li><a href="contact.html">Contact Us</a></li>
         </ul>
 
@@ -59,14 +60,17 @@
         </header>
         <hr />
         <h2>Make a payment</h2>
-        <form id="paymentform">
+        <form id="paymentform" method="post" action="/makePayment">
           <div class="form-group">
             <label for="amount">Amount</label>
             <input
               type="number"
+              step="0.01"
               class="form-control"
               id="amount"
+              name="amount"
               placeholder="Enter amount"
+              required
             />
           </div>
           <div class="form-group">
@@ -75,16 +79,9 @@
               type="date"
               class="form-control"
               id="date"
+              name="date"
               placeholder="Enter date"
-            />
-          </div>
-          <div class="form-group">
-            <label for="description">Description</label>
-            <input
-              type="text"
-              class="form-control"
-              id="description"
-              placeholder="Enter description"
+              required
             />
           </div>
           <h2>Credit Card Information</h2>
@@ -98,14 +95,37 @@
             />
           </div>
           <div class="form-group">
-            <label for="cardholder">Card Holder</label>
+            <label for="zip">Zip Code</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
-              id="cardholder"
-              placeholder="Enter card holder"
+              id="zip"
+              placeholder="Enter billing zip code"
+              max="99999"
+              min="00000"
             />
           </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input
+              type="number"
+              class="form-control"
+              id="cvv"
+              placeholder="Enter CVV"
+              max="999"
+              min="000"
+            />
+          </div>
+          <div class="form-group">
+            <label for="expdate">Expiration Date</label>
+            <input
+              type="month"
+              class="form-control"
+              id="expdate"
+              placeholder="Enter expiration date"
+            />
+          </div>
+          <input type="hidden" name="username" value="">
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>

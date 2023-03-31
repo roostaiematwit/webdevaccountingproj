@@ -127,7 +127,7 @@ ul.bottomButton {
 ----------------------------------------------------- */
 #content {
     padding: 20px;
-    padding-top: 0px; /* MINE */
+    padding-top: 0px;
     min-height: 100vh;
     width:100%;
 }

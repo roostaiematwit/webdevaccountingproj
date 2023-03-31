@@ -25,10 +25,27 @@ db.run('CREATE TABLE IF NOT EXISTS maintenance (ticID INT PRIMARY KEY, username 
   }
 });
 
+db.run('CREATE TABLE IF NOT EXISTS payments (paymentID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, amount DOUBLE, date DATE)', (err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+});
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/login.html');
+});
+
+app.post('/makePayment', (req, res) => {
+  const { username, amount, date } = req.body;
+ 
+    db.run(`INSERT INTO payments (username, amount, date) VALUES (?, ?, ?)`, [username, amount, date], (err) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      res.redirect('/payments.html');
+    });
 });
 
 app.post('/addClient', (req, res) => {
@@ -57,7 +74,7 @@ app.post('/addMaintenance', (req, res) => {
         if (err) {
           return console.error(err.message);
         }
-        res.redirect('/maintainence.html');
+        res.redirect('/maintenance.html');
       });
     });
     db.run("COMMIT");
@@ -76,7 +93,18 @@ app.get('/clients', (req, res) => {
   });
 
 app.get('/maintenance', (req, res) => {
-  db.all('SELECT ticID, username, date, description, emergency FROM maintenance', [], (err, rows) => {
+  const {username} = req.query;
+  db.all('SELECT ticID, username, date, description, emergency FROM maintenance WHERE username = ?', [username], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.send(rows);
+  });
+});
+
+app.get('/payments', (req, res) => {
+  const {username} = req.query;
+  db.all('SELECT amount, date FROM payments WHERE username = ?', [username], (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
