@@ -13,7 +13,7 @@ const db = new sqlite3.Database('mydb.db', (err) => {
   console.log('Connected to the mydb.db SQLite database.');
 });
 
-db.run('CREATE TABLE IF NOT EXISTS clients (username TEXT PRIMARY KEY, name TEXT, email TEXT, address TEXT, password TEXT)', (err) => {
+db.run('CREATE TABLE IF NOT EXISTS clients (username TEXT PRIMARY KEY, name TEXT, email TEXT, address TEXT, password TEXT, monthrent DOUBLE)', (err) => {
   if (err) {
     return console.error(err.message);
   }
@@ -45,19 +45,36 @@ app.post('/makePayment', (req, res) => {
         return console.error(err.message);
       }
       res.redirect('/payments.html');
+      db.run(`UPDATE clients SET monthrent = (monthrent - ?) WHERE username = ?`, [amount, username]), (err) => {
+        if (err) {
+          return console.error(err.message);
+        }
+      }
     });
 });
 
 app.post('/addClient', (req, res) => {
   const { username, name, email, address, password } = req.body;
  
-    db.run(`INSERT INTO clients (username, name, email, address, password) VALUES (?, ?, ?, ?, ?)`, [username, name, email, address, password], (err) => {
+    db.run(`INSERT INTO clients (username, name, email, address, password, monthrent) VALUES (?, ?, ?, ?, ?, ?)`, [username, name, email, address, password, 1000.00], (err) => {
       if (err) {
         return console.error(err.message);
       }
       res.redirect('/');
     });
 });
+
+app.get('/getRent', (req, res) => {
+  const { username } = req.body;
+ 
+    db.run('SELECT monthrent FROM clients WHERE username = ?', [username], (err,row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      res.send(row);
+    });
+});
+
 
 app.post('/addMaintenance', (req, res) => {
   const { username, date, description, emergency } = req.body;
@@ -129,7 +146,7 @@ app.post('/login', (req, res) => {
       return;
     }
     
-    res.status(200).json({ message: 'Login successful', username: row.username, name: row.name, email: row.email, address: row.address });
+    res.status(200).json({ message: 'Login successful', username: row.username, name: row.name, email: row.email, address: row.address, monthrent: row.monthrent });
   })
 });
   
