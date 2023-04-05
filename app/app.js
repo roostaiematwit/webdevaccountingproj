@@ -64,17 +64,6 @@ app.post('/addClient', (req, res) => {
     });
 });
 
-app.get('/getRent', (req, res) => {
-  const { username } = req.body;
- 
-    db.run('SELECT monthrent FROM clients WHERE username = ?', [username], (err,row) => {
-      if (err) {
-        return console.error(err.message);
-      }
-      res.send(row);
-    });
-});
-
 
 app.post('/addMaintenance', (req, res) => {
   const { username, date, description, emergency } = req.body;
@@ -117,6 +106,17 @@ app.get('/maintenance', (req, res) => {
     }
     res.send(rows);
   });
+});
+
+app.get('/getRent', (req, res) => {
+  const { username } = req.query;
+ 
+    db.run('SELECT monthrent FROM clients WHERE username = ?', [username], (err,row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      res.send(row);
+    });
 });
 
 app.get('/payments', (req, res) => {

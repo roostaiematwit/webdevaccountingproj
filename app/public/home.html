@@ -28,8 +28,8 @@
         const response = await fetch(`/getRent?username=${username}`);
         const data = await response.json();
 
-        const heading = document.getElementById('balance-due');
-        heading.innerHTML = `${data.monthrent}`;
+        console.log(data);
+        document.getElementById('balance-due').textContent = '$' + data.monthrent;
         console.log(data.monthrent);
       }
       window.onload = function () {
