@@ -14,22 +14,50 @@
     />
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="./css/style.css" />
+    <!-- Javascript -->
+    <script src="./javascript/loadInfo.js"></script>
   </head>
   <body>
     <script>
       window.onload = function () {
-        const username = sessionStorage.getItem("username");
-        const name = sessionStorage.getItem("name");
-        const address = sessionStorage.getItem("address");
-        document.querySelector('input[name="username"]').value = username;
-
-        if (username) {
-          document.getElementById("username-display").textContent = name;
-          document.getElementById("address").textContent = address;
-        } else {
-          window.location.href = "/login.html";
-        }
+        loadInfo();
+        document.querySelector('input[name="username"]').value = getUsername();
       };
+
+      async function submitPayment(event) {
+        event.preventDefault();
+
+        const username = getUsername();
+        const amount = document.getElementById("amount").value;
+        const date = document.getElementById("date").value;
+
+        const data = {
+          username,
+          amount,
+          date,
+        };
+
+        try {
+          const response = await fetch("/makePayment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            window.location.href = "/payments.html";
+          } else {
+            const errorMessage = await response.text();
+            alert(errorMessage);
+          }
+        } catch (error) {
+          alert(
+            "An error occurred while processing your payment. Please try again later."
+          );
+        }
+      }
     </script>
     <div class="wrapper">
       <!-- Sidebar Holder -->
@@ -60,7 +88,7 @@
         </header>
         <hr />
         <h2>Make a payment</h2>
-        <form id="paymentform" method="post" action="/makePayment">
+        <form id="paymentform" method="post" onsubmit="submitPayment(event)">
           <div class="form-group">
             <label for="amount">Amount</label>
             <input
@@ -125,7 +153,7 @@
               placeholder="Enter expiration date"
             />
           </div>
-          <input type="hidden" name="username" value="">
+          <input type="hidden" name="username" value="" />
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>

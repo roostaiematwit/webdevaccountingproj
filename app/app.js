@@ -13,6 +13,9 @@ const db = new sqlite3.Database('mydb.db', (err) => {
   console.log('Connected to the mydb.db SQLite database.');
 });
 
+
+// CREATE TABLES
+
 db.run('CREATE TABLE IF NOT EXISTS clients (username TEXT PRIMARY KEY, name TEXT, email TEXT, address TEXT, password TEXT, monthrent DOUBLE)', (err) => {
   if (err) {
     return console.error(err.message);
@@ -31,28 +34,69 @@ db.run('CREATE TABLE IF NOT EXISTS payments (paymentID INTEGER PRIMARY KEY AUTOI
   }
 });
 
+// GIVE APP ACCESS TO DIRECTORIES
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/login.html');
 });
 
+
+// 
 app.post('/makePayment', (req, res) => {
   const { username, amount, date } = req.body;
- 
-    db.run(`INSERT INTO payments (username, amount, date) VALUES (?, ?, ?)`, [username, amount, date], (err) => {
+  console.log(username + "paid", amount + "on", date);
+
+  db.serialize(() => {
+    // Check if the user exists and retrieve their current rent balance
+    db.get(`SELECT monthrent FROM clients WHERE username = ?`, [username], (err, row) => {
       if (err) {
         return console.error(err.message);
       }
-      res.redirect('/payments.html');
-      db.run(`UPDATE clients SET monthrent = (monthrent - ?) WHERE username = ?`, [amount, username]), (err) => {
-        if (err) {
-          return console.error(err.message);
+      if (!row) {
+        console.log("User not found.");
+        res.status(400).send("User not found");
+      } else {
+        // Compare the submitted amount with the rent balance
+        if (parseFloat(amount) > parseFloat(row.monthrent)) {
+          res.status(400).send("Payment amount is greater than the rent balance.");
+        } else {
+          // Run the queries in a transaction
+          db.run('BEGIN TRANSACTION');
+
+          // Insert the payment
+          db.run(`INSERT INTO payments (username, amount, date) VALUES (?, ?, ?)`, [username, amount, date], (err) => {
+            if (err) {
+              db.run('ROLLBACK');
+              return console.error(err.message);
+            }
+          });
+
+          // Update the user's rent balance
+          db.run(`UPDATE clients SET monthrent = (monthrent - ?) WHERE username = ?`, [amount, username], (err) => {
+            if (err) {
+              db.run('ROLLBACK');
+              return console.error(err.message);
+            }
+          });
+
+          db.run('COMMIT', (err) => {
+            if (err) {
+              db.run('ROLLBACK');
+              return console.error(err.message);
+            }
+            res.redirect('/payments.html');
+          });
         }
       }
     });
+  });
 });
 
+
+
+// Add client to database
 app.post('/addClient', (req, res) => {
   const { username, name, email, address, password } = req.body;
  
@@ -65,6 +109,7 @@ app.post('/addClient', (req, res) => {
 });
 
 
+// Add a maintenance ticket to the database
 app.post('/addMaintenance', (req, res) => {
   const { username, date, description, emergency } = req.body;
   db.serialize(() => {
@@ -87,8 +132,7 @@ app.post('/addMaintenance', (req, res) => {
   });
 });
 
-// the row variable is used to represent each row of data that is returned by the database query. 
-//The row variable is typically an object that contains the columns of the row and their associated values.
+// Grab user infromation from database
 app.get('/clients', (req, res) => {
     db.all('SELECT username, name, email, address FROM clients', [], (err, rows) => {
       if (err) {
@@ -98,6 +142,7 @@ app.get('/clients', (req, res) => {
     });
   });
 
+  // Grab ticket information from database
 app.get('/maintenance', (req, res) => {
   const {username} = req.query;
   db.all('SELECT ticID, username, date, description, emergency FROM maintenance WHERE username = ?', [username], (err, rows) => {
@@ -108,16 +153,24 @@ app.get('/maintenance', (req, res) => {
   });
 });
 
+// Grab rent price from database
 app.get('/getRent', (req, res) => {
   const { username } = req.query;
- 
-    db.run('SELECT monthrent FROM clients WHERE username = ?', [username], (err,row) => {
-      if (err) {
-        return console.error(err.message);
-      }
-      res.send(row);
-    });
+  db.get('SELECT monthrent FROM clients WHERE username = ?', [username], (err, row) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    if (row) {
+      res.status(200).json({ message: 'Retrieving rent successful', monthrent: row.monthrent });
+    } else {
+      res.status(404).json({ error: 'No rent found' });
+    }
+  });
 });
+
+
 
 app.get('/payments', (req, res) => {
   const {username} = req.query;
@@ -129,6 +182,7 @@ app.get('/payments', (req, res) => {
   });
 });
 
+// Checks if user is in database
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   db.get('SELECT * FROM clients where username = ? and password = ?', [username, password], (err, row)=>{

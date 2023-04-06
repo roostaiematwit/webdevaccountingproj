@@ -13,24 +13,18 @@
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="./css/maintenancestyle.css" />
-  <script src="./javascript/maintenancelist.js"></script>
+  <!-- Javascript -->
+  <script src="./javascript/loadInfo.js"></script>
 </head>
 
 <body>
   <script>
     window.onload = function () {
-      const username = sessionStorage.getItem("username");
-      const name = sessionStorage.getItem("name");
-      const address = sessionStorage.getItem("address");
-      document.querySelector('input[name="username"]').value = username;
-
-      if (username) {
-        document.getElementById("username-display").textContent = name;
-        document.getElementById("address").textContent = address;
-      } else {
-        window.location.href = "/login.html";
-      }
+      loadInfo();
+      document.querySelector('input[name="username"]').value = getUsername();
+      console.log(getUsername());
     };
+    fetchMaintenanceTickets();
   </script>
   <div class="wrapper">
     <!-- Sidebar Holder -->
@@ -76,27 +70,7 @@
             </thead>
             <tbody> </tbody>
           </table>
-          <script>
-            async function fetchTickets() {
-              const username = sessionStorage.getItem("username");
-              const response = await fetch(`/maintenance?username=${username}`);
-              const data = await response.json();
-              const maintenanceTable = document.getElementById('maintenance-table').getElementsByTagName('tbody')[0];
-              maintenanceTable.innerHTML = '';
-
-              data.forEach(ticket => {
-                const newRow = maintenanceTable.insertRow();
-                newRow.innerHTML = `
-                  <td>${ticket.ticID}</td>
-                  <td>${ticket.date}</td>
-                  <td>${ticket.description}</td>
-                  <td>${ticket.emergency == null? "No":"Yes"}</td>
-                `;
-              });
-            }
-
-            fetchTickets();
-          </script>
+          
         </section>
         <section class="tooltab">
           <form id="maintenance-appts" method="POST" action="/addMaintenance">
