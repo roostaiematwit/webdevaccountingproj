@@ -109,9 +109,14 @@
               id="date"
               name="date"
               placeholder="Enter date"
+              min=""
               required
             />
           </div>
+          <script>
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("date").setAttribute("min", today);
+          </script>
           <h2>Credit Card Information</h2>
           <div class="form-group">
             <label for="cardnumber">Card Number</label>
