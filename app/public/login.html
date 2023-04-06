@@ -2,59 +2,60 @@
 <html lang="en">
 
 <head>
-    <title>PadPal - Login</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/loginstyle.css">
+  <title>PadPal - Login</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/loginstyle.css">
 
-    <!-- Javascript -->
-    <script src="./javascript/login.js"></script>
-    
+  <!-- Javascript -->
+  <script src="./javascript/login.js"></script>
+
 </head>
 
 <body>
-    <header>
-        <h1>PadPal</h1>
-    </header>
-    <section class="tooltab">
-        <form method="post" action="/login" onsubmit="event.preventDefault(); validateCredentials();">
-            <h2>Login</h2>
-            <h3>Username</h3>
-            <input type="text" id="username" name="username" placeholder="Enter username">
-            <h3>Password</h3>
-            <input type="password" id="password" name="password" placeholder="Enter password">
-            <br>
-            <input type="submit" value="Enter" name="submit"></input>
-            <br>
-            <button>
-                <a href="./createuser.html">Create new user</a>
-              </button>
-        </form>
-    </section>
+  <header>
+    <h1>PadPal</h1>
+  </header>
+  <section class="tooltab">
+    <form method="post" action="/login" onsubmit="event.preventDefault(); validateCredentials();">
+      <h2>Login</h2>
+      <h3>Username</h3>
+      <input type="text" id="username" name="username" placeholder="Enter username">
+      <h3>Password</h3>
+      <input type="password" id="password" name="password" placeholder="Enter password">
+      <br>
+      <input type="submit" value="Enter" name="submit"></input>
+      <br>
+    </form>
+    <button>
+      <a href="./createuser.html">Create new user</a>
+    </button>
+  </section>
 
-    <section class="tooltab demoView">
-        <style>
-            .demoView {
-                margin-top: 50px;
-            }
-            th{
-                padding: 10px 30px;
-                text-align: center;
-            }
-        </style>
-        <h2>Users for demo view</h2>
-        <table id="users">
-            <thead>
-            <tr>
-                <th>Username</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-            </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
-    
+  <section class="tooltab demoView">
+    <style>
+      .demoView {
+        margin-top: 50px;
+      }
+
+      th {
+        padding: 10px 30px;
+        text-align: center;
+      }
+    </style>
+    <h2>Users for demo view</h2>
+    <table id="users">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
 
   <script>
     async function fetchUsers() {
@@ -77,4 +78,5 @@
     fetchUsers();
   </script>
 </body>
+
 </html>
