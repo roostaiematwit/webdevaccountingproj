@@ -119,7 +119,7 @@ app.post('/addMaintenance', (req, res) => {
         return console.error(err.message);
       }
 
-      const nextID = row.maxID ? row.maxID + 1 : 1; // Change here: use correct property name
+      const nextID = row.maxID ? row.maxID + 1 : 1;
 
       db.run(`INSERT INTO maintenance (ticID, username, date, description, emergency) VALUES (?,?,?,?,?)`, [nextID, username, date, description, emergency], (err) => {
         if (err) {
