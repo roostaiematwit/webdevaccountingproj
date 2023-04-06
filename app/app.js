@@ -16,7 +16,7 @@ const db = new sqlite3.Database('mydb.db', (err) => {
 
 // CREATE TABLES
 
-db.run('CREATE TABLE IF NOT EXISTS clients (username TEXT PRIMARY KEY, name TEXT, email TEXT, address TEXT, password TEXT, monthrent DOUBLE)', (err) => {
+db.run('CREATE TABLE IF NOT EXISTS clients (username TEXT PRIMARY KEY, name TEXT, email TEXT, address TEXT, password TEXT, monthrent DECIMAL(7, 2))', (err) => {
   if (err) {
     return console.error(err.message);
   }
@@ -28,7 +28,7 @@ db.run('CREATE TABLE IF NOT EXISTS maintenance (ticID INT PRIMARY KEY, username 
   }
 });
 
-db.run('CREATE TABLE IF NOT EXISTS payments (paymentID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, amount DOUBLE, date DATE)', (err) => {
+db.run('CREATE TABLE IF NOT EXISTS payments (paymentID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, amount DECIMAL(7, 2), date DATE)', (err) => {
   if (err) {
     return console.error(err.message);
   }
@@ -66,7 +66,7 @@ app.post('/makePayment', (req, res) => {
           db.run('BEGIN TRANSACTION');
 
           // Insert the payment
-          db.run(`INSERT INTO payments (username, amount, date) VALUES (?, ?, ?)`, [username, amount, date], (err) => {
+          db.run(`INSERT INTO payments (username, amount, date) VALUES (?, ROUND(?,2), ?)`, [username, amount, date], (err) => {
             if (err) {
               db.run('ROLLBACK');
               return console.error(err.message);
@@ -74,7 +74,7 @@ app.post('/makePayment', (req, res) => {
           });
 
           // Update the user's rent balance
-          db.run(`UPDATE clients SET monthrent = (monthrent - ?) WHERE username = ?`, [amount, username], (err) => {
+          db.run(`UPDATE clients SET monthrent = ROUND(monthrent - ?, 2) WHERE username = ?`, [amount, username], (err) => {
             if (err) {
               db.run('ROLLBACK');
               return console.error(err.message);
