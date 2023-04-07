@@ -18,6 +18,7 @@
 </head>
 
 <body>
+  <!-- Script for session information and to fetch maintenance tickets -->
   <script>
     window.onload = function () {
       loadInfo();
@@ -59,6 +60,7 @@
       <hr>
       <h2>Maintenance</h2>
       <div id="page">
+        <!-- Maintenance ticket table -->
         <section class="tooltab" id="schedMaint">
           <h4>Scheduled Maintenance Appts</h4>
 
@@ -76,12 +78,16 @@
           
         </section>
         <section class="tooltab">
+          <!-- Maintenance request form -->
           <form id="maintenance-appts" method="POST" action="/addMaintenance">
-
             <h4>Request Maintenance</h4>
             <label for="date">Date</label>
             <br>
-            <input type="date" name="date" id="date" required>
+            <input type="date" name="date" id="date" max="" required>
+            <script>
+              const today = new Date().toISOString().split('T')[0];
+              document.getElementById("date").setAttribute("max", today);
+            </script>
             <br>
             <input type="text" name="description" id="description" placeholder="Enter description here..." required>
             <br>

@@ -1,3 +1,5 @@
+
+// Checks if credentials are valid before allowing a login.
 async function validateCredentials() {
             
     const username = document.getElementById('username').value;
@@ -22,7 +24,6 @@ async function validateCredentials() {
         sessionStorage.setItem('name', data.name);
         sessionStorage.setItem('email', data.email);
         sessionStorage.setItem('address', data.address);
-        // sessionStorage.setItem('monthrent', data.monthrent.toFixed(2));
 
         window.location.href = "/home.html";
         } else {

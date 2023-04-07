@@ -21,6 +21,7 @@
     <script src="./javascript/adminHandler.js"></script>
   </head>
   <body>
+    <!-- Script for session info and table fetching -->
     <script>
       window.onload = function () {
         var requestPass = prompt(
@@ -99,6 +100,7 @@
         </header>
         <hr />
 
+        <!-- Section to add rent balance to users -->
         <h2>Update Payment amount</h2>
         <form id="calendar-form" method="post" onsubmit="submitForm(event)">
           <div class="form-group">
@@ -132,6 +134,7 @@
             />
           </div>
 
+          <!-- User and maintenance ticket tables -->
           <section class="form-group">
             <legend>Tables:</legend>
           </section>

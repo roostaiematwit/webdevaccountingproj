@@ -1,0 +1,39 @@
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    display: inline;
+}
+
+.form-group {
+    display: block;
+    margin-bottom: 5px;
+}
+
+hr {
+    margin-top: 20px 0px;
+    opacity: 0;
+}
+
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #555;
+}
+
+legend {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}

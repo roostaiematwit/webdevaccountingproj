@@ -1,4 +1,4 @@
-
+//retunrs username
 function getUsername (){
     const username = sessionStorage.getItem("username");
     console.log(username);
@@ -6,7 +6,7 @@ function getUsername (){
 }
 
 
-
+//Sets sidebar name and header address if logged in
 function loadInfo(){
     const username = sessionStorage.getItem("username");
     const name = sessionStorage.getItem("name");
@@ -19,6 +19,7 @@ function loadInfo(){
     window.location.href = "/login.html";
     }
 }
+// grabs rent from the database and sets it in our html
 async function getRent() {
     const username = sessionStorage.getItem("username");
 
@@ -51,6 +52,8 @@ async function getRent() {
     alert("An error occurred while retrieving rent information. Please try again later.");
     }
 }
+
+// Check to see if payment is needed before redirecting to make a payment
 function redirectToMakePayment() {
     const monthrent = parseFloat(sessionStorage.getItem("monthrent"));
   
@@ -60,6 +63,8 @@ function redirectToMakePayment() {
       alert("Your rent balance is already zero. No payment is required.");
     }
   }
+
+  // fetches all maintenance tickets by username and sets it in our html table
 async function fetchMaintenanceTickets() {
     const username = sessionStorage.getItem("username");
     const response = await fetch(`/maintenance?username=${username}`);
@@ -77,6 +82,7 @@ async function fetchMaintenanceTickets() {
     `;
     });
 }
+// Fetches all maintenance tickets nd sets it in our admin html table
 async function fetchAdminMaintenanceTickets() {
     const response = await fetch(`/maintenance`);
     const data = await response.json();
@@ -94,7 +100,7 @@ async function fetchAdminMaintenanceTickets() {
     });
 }
 
-
+// Fetches all payments made by a user
 async function fetchPayments() {
     const username = sessionStorage.getItem("username");
     const response = await fetch(`/payments?username=${username}`);
@@ -112,7 +118,7 @@ async function fetchPayments() {
     `;
     });
   }
-  // Add more rent to pay
+  // Fetches all payment requests put in by the landlord
   async function fetchScheduledPayments() {
     const username = sessionStorage.getItem("username");
     const response = await fetch(`/requestPayments?username=${username}`);
@@ -131,6 +137,7 @@ async function fetchPayments() {
     });
   }
 
+  // Fetches all users and their information into a table. 
   async function fetchUsers() {
     const response = await fetch('/clients');
     const data = await response.json();

@@ -1,6 +1,6 @@
 const CalendarManager = (() => {
-  let calendar;
 
+  // A function to intialize the calendar
   function initialize() {
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
@@ -12,6 +12,7 @@ const CalendarManager = (() => {
         },
         customButtons: {
           addEventButton: {
+            // Custom button that allows user to add an event
             text: 'add event...',
             click: function() {
               var title = prompt('Event Title:');
