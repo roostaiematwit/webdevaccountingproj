@@ -120,6 +120,19 @@ ul.bottomButton {
     background: var(--active-color);
 }
 
+.sidebutton{
+    text-align: center;
+    font-size: 1.1em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background: #fff;
+    color: var(--sidebar-color);
+}
+.sidebutton:focus{
+    background: var(--active-color);
+}
+
 
 
 /* ---------------------------------------------------

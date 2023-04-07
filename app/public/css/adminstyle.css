@@ -1,0 +1,22 @@
+table {
+    border-collapse: collapse;
+    padding: 10px;
+    font-size: 14px;
+}
+
+th {
+    padding: 10px;
+    padding-bottom: 5px;
+}
+
+
+td {
+    padding: 2px;
+    padding-right: 100px;
+}
+
+.titleRow {
+    font-weight: 600;
+    color:#696969;
+    text-decoration: underline;
+}

@@ -25,6 +25,7 @@
         loadInfo();
       };
       fetchPayments();
+      fetchScheduledPayments();
     </script>
     <div class="wrapper">
       <!-- Sidebar Holder -->
@@ -58,15 +59,14 @@
         <div id="bigDiv">
           <div class="tooltab" id="schedPay">
             <table id="due-payments-table">
-              <th colspan="2">Scheduled Payments</th>
-              <tr class="titleRow">
-                <td>Amount</td>
-                <td>Date</td>
-              </tr>
-              <tr>
-                <td>$1,250.00</td>
-                <td>2023-04-19</td>
-              </tr>
+              <thead>
+                <th colspan="2">Scheduled Payments</th>
+                <tr class="titleRow">
+                  <td>Amount</td>
+                  <td>Date</td>
+                </tr>
+              </thead>
+              <tbody></tbody>
             </table>
           </div>
           <div class="tooltab" id="compPay">

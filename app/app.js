@@ -34,8 +34,13 @@ db.run('CREATE TABLE IF NOT EXISTS payments (paymentID INTEGER PRIMARY KEY AUTOI
   }
 });
 
-// GIVE APP ACCESS TO DIRECTORIES
+db.run('CREATE TABLE IF NOT EXISTS requestPayments (paymentReqID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, title TEXT, amount DECIMAL(7, 2), date DATE)', (err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+});
 
+// GIVE APP ACCESS TO DIRECTORIES
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
@@ -43,7 +48,7 @@ app.get('/', (req, res) => {
 });
 
 
-// 
+// Make payment (update rent balance & insert payment into payments table)
 app.post('/makePayment', (req, res) => {
   const { username, amount, date } = req.body;
   console.log(username + "paid", amount + "on", date);
@@ -94,13 +99,61 @@ app.post('/makePayment', (req, res) => {
   });
 });
 
+// set payment amount (for landlord)
+app.post('/setPayment', (req, res) => {
+  const { username, title, date, amount } = req.body;
+
+  db.serialize(() => {
+    // Check if the user exists and retrieve their current rent balance
+    db.get(`SELECT monthrent FROM clients WHERE username = ?`, [username], (err, row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      if (!row) {
+        console.log("User not found.");
+        res.status(400).send("User not found");
+      } else {
+       
+          // Run the queries in a transaction
+          db.run('BEGIN TRANSACTION');
+
+          // Insert the +payment into requestPayments table
+          db.run(`INSERT INTO requestPayments (username, title, amount, date) VALUES (?, ?, ROUND(?,2), ?)`, [username, title, amount, date], (err) => {
+            if (err) {
+              db.run('ROLLBACK');
+              return console.error(err.message);
+            }
+          });
+
+          // Update the user's rent balance
+          db.run(`UPDATE clients SET monthrent = ROUND(monthrent + ?, 2) WHERE username = ?`, [amount, username], (err) => {
+            if (err) {
+              db.run('ROLLBACK');
+              return console.error(err.message);
+            }
+          });
+
+          db.run('COMMIT', (err) => {
+            if (err) {
+              db.run('ROLLBACK');
+              return console.error(err.message);
+            }
+            res.redirect('/admin.html');
+          });
+        
+      }
+    });
+  });
+});
+
+
 
 
 // Add client to database
 app.post('/addClient', (req, res) => {
   const { username, name, email, address, password } = req.body;
  
-    db.run(`INSERT INTO clients (username, name, email, address, password, monthrent) VALUES (?, ?, ?, ?, ?, ?)`, [username, name, email, address, password, 1000.00], (err) => {
+    db.run(`INSERT INTO clients (username, name, email, address, password, monthrent) VALUES (?, ?, ?, ?, ?, ?)`, [username, name, email, address, password, 0], (err) => {
       if (err) {
         return console.error(err.message);
       }
@@ -132,9 +185,9 @@ app.post('/addMaintenance', (req, res) => {
   });
 });
 
-// Grab user infromation from database
+// Grab user infromation from clients table
 app.get('/clients', (req, res) => {
-    db.all('SELECT username, name, email, address FROM clients', [], (err, rows) => {
+    db.all('SELECT username, name, email, address, monthrent FROM clients', [], (err, rows) => {
       if (err) {
         return console.error(err.message);
       }
@@ -142,10 +195,41 @@ app.get('/clients', (req, res) => {
     });
   });
 
-  // Grab ticket information from database
+  // Grab maintenance ticket information from maintenance table
 app.get('/maintenance', (req, res) => {
   const {username} = req.query;
-  db.all('SELECT ticID, username, date, description, emergency FROM maintenance WHERE username = ?', [username], (err, rows) => {
+  if(username){
+    db.all('SELECT ticID, username, date, description, emergency FROM maintenance WHERE username = ?', [username], (err, rows) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      res.send(rows);
+    });
+  }else{
+    db.all('SELECT ticID, username, date, description, emergency FROM maintenance', [], (err, rows) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      res.send(rows);
+    });
+  }
+});
+
+// Grab payment information from payments table
+app.get('/payments', (req, res) => {
+  const {username} = req.query;
+  db.all('SELECT amount, date FROM payments WHERE username = ?', [username], (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.send(rows);
+  });
+});
+
+// Grab request payment information from requestPayments table
+app.get('/requestPayments', (req, res) => {
+  const {username} = req.query;
+  db.all('SELECT title, amount, date FROM requestPayments WHERE username = ?', [username], (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
@@ -170,19 +254,7 @@ app.get('/getRent', (req, res) => {
   });
 });
 
-
-
-app.get('/payments', (req, res) => {
-  const {username} = req.query;
-  db.all('SELECT amount, date FROM payments WHERE username = ?', [username], (err, rows) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.send(rows);
-  });
-});
-
-// Checks if user is in database
+// Checks if user is in database upon login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   db.get('SELECT * FROM clients where username = ? and password = ?', [username, password], (err, row)=>{

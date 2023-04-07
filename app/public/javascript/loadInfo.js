@@ -77,6 +77,24 @@ async function fetchMaintenanceTickets() {
     `;
     });
 }
+async function fetchAdminMaintenanceTickets() {
+    const response = await fetch(`/maintenance`);
+    const data = await response.json();
+    const maintenanceTable = document.getElementById('maintenance-table').getElementsByTagName('tbody')[0];
+    maintenanceTable.innerHTML = '';
+
+    data.forEach(ticket => {
+    const newRow = maintenanceTable.insertRow();
+    newRow.innerHTML = `
+        <td>${ ticket.username }</td>
+        <td>${ticket.date}</td>
+        <td>${ticket.description}</td>
+        <td>${ticket.emergency == null? "No":"Yes"}</td>
+    `;
+    });
+}
+
+
 async function fetchPayments() {
     const username = sessionStorage.getItem("username");
     const response = await fetch(`/payments?username=${username}`);
@@ -94,4 +112,43 @@ async function fetchPayments() {
     `;
     });
   }
+  // Add more rent to pay
+  async function fetchScheduledPayments() {
+    const username = sessionStorage.getItem("username");
+    const response = await fetch(`/requestPayments?username=${username}`);
+    const data = await response.json();
+    const rentTable = document
+      .getElementById("due-payments-table")
+      .getElementsByTagName("tbody")[0];
+    rentTable.innerHTML = "";
+
+    data.forEach((rent) => {
+      const newRow = rentTable.insertRow();
+      newRow.innerHTML = `
+      <td>+ $${rent.amount}</td>
+      <td>${rent.date}</td>
+    `;
+    });
+  }
+
+  async function fetchUsers() {
+    const response = await fetch('/clients');
+    const data = await response.json();
+    const clientsTable = document.getElementById('users').getElementsByTagName('tbody')[0];
+    clientsTable.innerHTML = '';
+
+    data.forEach(client => {
+      const newRow = clientsTable.insertRow();
+      newRow.innerHTML = `
+        <td>${client.username}</td>
+        <td>${client.name}</td>
+        <td>${client.email}</td>
+        <td>${client.address}</td>
+        <td>$${client.monthrent}</td>
+      `;
+    });
+  }
+
+
+  
   

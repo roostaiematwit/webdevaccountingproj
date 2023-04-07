@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>PadPal - Make a Payment</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/adminstyle.css" />
+
+    <!-- Javascript -->
+    <script src="./javascript/loadInfo.js"></script>
+    <script src="./javascript/adminHandler.js"></script>
+  </head>
+  <body>
+    <script>
+      window.onload = function () {
+        var requestPass = prompt(
+          "Please enter the password to access admin page"
+        );
+        if (requestPass != "admin") {
+          window.location.href = "/home.html";
+        }
+      };
+      async function submitForm(event) {
+        event.preventDefault();
+
+        const title = "payment";
+        const date = document.querySelector('input[name="date"]').value;
+        const amount = document.getElementById("amount").value;
+        const username = document.getElementById("username").value;
+
+        const data = {
+          username,
+          title,
+          date,
+          amount,
+        };
+
+        try {
+          const response = await fetch("/setPayment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            document.querySelector('input[name="date"]').value = "";
+            document.getElementById("amount").value = "";
+            document.getElementById("username").value = "";
+          } else {
+            const errorMessage = await response.text();
+            alert(errorMessage);
+          }
+        } catch (error) {
+          alert("An error occurred.");
+        }
+      }
+
+      fetchAdminMaintenanceTickets();
+      fetchUsers();
+    </script>
+    <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h3>Welcome, <span>ADMIN</span>!</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="payments.html">Payments</a></li>
+          <li><a href="maintenance.html">Maintenance</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+        <ul class="list-unstyled bottomButton">
+          <li>
+            <a href="login.html" class="logout">Log Out</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Page Content Holder -->
+      <div id="content">
+        <header>
+          <h1>PadPal</h1>
+          <p id="address">The Admin Spot</p>
+        </header>
+        <hr />
+
+        <h2>Update Payment amount</h2>
+        <form id="calendar-form" method="post" onsubmit="submitForm(event)">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              placeholder="Enter username you want to update"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input
+              type="number"
+              step="0.01"
+              id="amount"
+              name="amount"
+              placeholder="Enter amount"
+              required
+            />
+            <label for="date">Date</label>
+            <input
+              type="date"
+              name="date"
+              min=""
+              placeholder="Enter Date"
+              required
+            />
+          </div>
+
+          <section class="form-group">
+            <legend>Tables:</legend>
+          </section>
+          <section class="tooltab" id="schedMaint">
+            <h4>Scheduled Maintenance Appts</h4>
+            <table id="maintenance-table">
+              <thead>
+                <tr class="titleRow">
+                  <td>User</td>
+                  <td>Date</td>
+                  <td>Description</td>
+                  <td>Emergency?</td>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </section>
+          <section class="tooltab" id="schedMaint">
+            <h4>Users</h4>
+
+            <table id="users">
+              <thead>
+                <tr class="titleRow">
+                  <th>Username</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Rent due</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
